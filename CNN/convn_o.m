@@ -27,8 +27,9 @@ for k=1:bi(3)
                             tmp=x(i-sy(1)+ii,j-sy(2)+jj,k)*y(ii,jj);
                         else tmp=0;
                         end
-                        if tmp<1e-6
+                        if abs(tmp)<2^-15
                             ti=ti+1;
+                            tmp=0;
                         end
                         total=total+1;
                         s=s+tmp;

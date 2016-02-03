@@ -5,7 +5,8 @@ for i=1:sx(1)
     for j=1:sx(2)
         for k=1:sx(3)
             tmp=x(i,j,k)*y(i,j,k);
-            if tmp<1e-6
+            if abs(tmp)<2^-15
+                tmp=0;
                 ti=ti+1;
             end
             total=total+1;
