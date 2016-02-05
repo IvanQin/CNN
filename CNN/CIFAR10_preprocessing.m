@@ -40,7 +40,18 @@ for i=1:size(test_x,1)
     end
 end
 test_x=uint8(tmp_x);
+%% transform label y in the dataset
+tmp_y=zeros(size(train_y,1),10);
+for i=1:size(train_y,1)
+    tmp_y(i,train_y(i,1)+1)=1;
+end
+train_y=uint8(tmp_y);
 
+tmp_y=zeros(size(test_y,1),10);
+for i=1:size(test_y,1)
+    tmp_y(i,test_y(i,1)+1)=1;
+end
+test_y=uint8(tmp_y);
 %end
 
 
