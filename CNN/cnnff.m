@@ -12,9 +12,9 @@ function net = cnnff(net, x)
                 z = zeros(size(net.layers{l - 1}.a{1}) - [net.layers{l}.kernelsize - 1 net.layers{l}.kernelsize - 1 0]);
                 for i = 1 : inputmaps   %  for each input map
                     %  convolve with corresponding kernel and add to temp output map
-                    %z = z + convn(net.layers{l - 1}.a{i}, net.layers{l}.k{i}{j}, 'valid');
+                    z = z + convn(net.layers{l - 1}.a{i}, net.layers{l}.k{i}{j}, 'valid');
                     %disp(size(net.layers{2}.k{1}{1}));
-                    z = z + convn_o(net.layers{l - 1}.a{i}, net.layers{l}.k{i}{j}, 'valid');
+                    %z = z + convn_o(net.layers{l - 1}.a{i}, net.layers{l}.k{i}{j}, 'valid');
                 end
                 %  add bias, pass through nonlinearity
                 net.layers{l}.a{j} = sigm(z + net.layers{l}.b{j});
@@ -24,8 +24,8 @@ function net = cnnff(net, x)
         elseif strcmp(net.layers{l}.type, 's')
             %  downsample
             for j = 1 : inputmaps
-                %z = convn(net.layers{l - 1}.a{j}, ones(net.layers{l}.scale) / (net.layers{l}.scale ^ 2), 'valid');%  !! replace with variable
-                z = convn_o(net.layers{l - 1}.a{j}, ones(net.layers{l}.scale) / (net.layers{l}.scale ^ 2), 'valid');
+                z = convn(net.layers{l - 1}.a{j}, ones(net.layers{l}.scale) / (net.layers{l}.scale ^ 2), 'valid');%  !! replace with variable
+                %z = convn_o(net.layers{l - 1}.a{j}, ones(net.layers{l}.scale) / (net.layers{l}.scale ^ 2), 'valid');
                 net.layers{l}.a{j} = z(1 : net.layers{l}.scale : end, 1 : net.layers{l}.scale : end, :);
             end
         end
@@ -39,5 +39,6 @@ function net = cnnff(net, x)
     end
     %  feedforward into output perceptrons
     net.o = sigm(net.ffW * net.fv + repmat(net.ffb, 1, size(net.fv, 2)));
+    %net.o=sigm(matrixmul(net.ffW,net.fv) + repmat(net.ffb, 1, size(net.fv, 2)));
 
 end
