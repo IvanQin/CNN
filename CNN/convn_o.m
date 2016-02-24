@@ -1,5 +1,5 @@
 function res=convn_o(x,y,opti)
-global ti total;
+global ti total zero;
 addpath('./util/');
 y=flipall(y);
 
@@ -12,12 +12,17 @@ if numel(sx)==3 && numel(sy)==3 % 3-D & 3-D convolution
         for i=1:bi(1)
             for j=1:bi(2)
                 s=0;
+                p=sqrt(sy(1)*sy(2)*sy(3));
+                threshold=(2^-6/p);
                 for ii=1:sy(1)
                     for jj=1:sy(2)
                         for kk=1:sy(3)
                             a=x(i+ii-1,j+jj-1,k+kk-1);
                             b=y(ii,jj,kk);
-                            if abs(a)<2^-7 && abs(b)<2^-7
+                            if abs(a)<threshold && abs(b)<threshold
+                                %if a==0 && b==0
+                                %  zero=zero+1;
+                                %end
                                 ti=ti+1;
                                 tmp=0;
                             else tmp=a*b;
@@ -44,8 +49,9 @@ bi=[bi sx(3)];
 for k=1:bi(3)
     for i=1:bi(1)
         for j=1:bi(2)
-        
+            p=sqrt(sy(1)*sy(2));
             s=0;
+            threshold=(2^-6/p);
             for ii=1:sy(1)
                 for jj=1:sy(2)
                         
@@ -63,7 +69,10 @@ for k=1:bi(3)
                             
                         end
                         
-                        if abs(a)<2^-7 && abs(b)<2^-7
+                        if abs(a)<threshold && abs(b)<threshold
+                            %if a==0 && b==0
+                            %    zero=zero+1;
+                            %end
                             ti=ti+1;
                             tmp=0;
                         end
