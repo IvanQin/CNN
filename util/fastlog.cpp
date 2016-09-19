@@ -20,7 +20,7 @@ int main(){
 	float x;
 	srand(time(NULL));
 	for (int i = 0; i < N; i++){
-		list[i] = rand()/float(RAND_MAX);
+		list[i] = rand()/float(RAND_MAX); // 生成0-1之间的随机数
         //printf ("list[%d]=%f\n",i,list[i]);
     }
 	int32 log2x;
