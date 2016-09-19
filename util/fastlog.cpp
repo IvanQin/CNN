@@ -32,13 +32,13 @@ int main(){
 	    log2x = fast_log(list[i]);
     }
     end = clock();
-    printf ("duration = %lf (before optimization)\n",double(end-start));
+    printf ("duration = %lf (after optimization)\n",double(end-start));
     // 优化前的方法
     start = clock();
     for (int i = 0; i < N; i++){
 	    log2x = log2(list[i]);
     }
     end = clock();
-    printf ("duration = %lf (after optimization)\n",double(end-start));
+    printf ("duration = %lf (before optimization)\n",double(end-start));
 	//printf("int log2(x) = %ld\n", log2x);
 }
